@@ -1,0 +1,2 @@
+go get github.com/garyburd/redigo/redis
+go get github.com/gorilla/mux
