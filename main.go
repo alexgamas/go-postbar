@@ -3,18 +3,20 @@ package main
 import (
 	"flag"
 	"fmt"
+	"go-postbar/logger"
+	"go-postbar/router"
 	"net/http"
 	"os"
 
-	"./logger"
 	"github.com/gorilla/mux"
 )
 
 var log = logger.Log
 
 var (
-	port = flag.Int("port", 8080, "HTTP port")
-	help = flag.Bool("help", false, "Help")
+	address = flag.String("address", "0.0.0.0", "Bind Address")
+	port    = flag.Int("port", 8080, "HTTP port")
+	help    = flag.Bool("help", false, "Help")
 )
 
 func homePage(w http.ResponseWriter, r *http.Request) {
@@ -81,5 +83,6 @@ func main() {
 		return
 	}
 
-	initServer(*port)
+	// initServer(*port)
+	router.StartServer(*address, *port)
 }

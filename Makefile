@@ -5,10 +5,10 @@ default: build_docker
 
 deps:
 	@echo deps: "\n\n**** Downloading deps ****\n\n"
-	go get github.com/op/go-logging
-	#go get github.com/garyburd/redigo/redis
+	# go get github.com/garyburd/redigo/redis
 	# go get github.com/go-redis/redis
 	# go get github.com/vmihailenco/msgpack
+	go get github.com/op/go-logging
 	go get github.com/gorilla/mux
 
 
