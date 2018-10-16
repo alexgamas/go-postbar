@@ -1,6 +1,7 @@
 package router
 
 import (
+	"encoding/json"
 	"fmt"
 	"go-postbar/model"
 	"net/http"
@@ -30,7 +31,16 @@ func PostsHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 // PostHandler PostHandler
-func PostHandler(w http.ResponseWriter, r *http.Request) {}
+func PostHandler(w http.ResponseWriter, r *http.Request) {
+	// w.WriteHeader(http.StatusOK)
+	// log.Info(fmt.Sprintf("%v", vars))
+	// fmt.Fprintf(w, "ok")
+
+	w.WriteHeader(http.StatusOK)
+	log.Debug("loguid")
+	status := model.Health{Status: "UP"}
+	json.NewEncoder(w).Encode(status)
+}
 
 // CommentsHandler CommentsHandler
 func CommentsHandler(w http.ResponseWriter, r *http.Request) {}
@@ -46,7 +56,7 @@ func PostsRouter() *mux.Router {
 
 	router := mux.NewRouter()
 
-	router.HandleFunc("/", PostsHandler).Methods(GET)
+	// router.HandleFunc("/", PostsHandler).Methods(GET)
 	router.HandleFunc("/{id}", PostHandler).Methods(GET)
 	router.HandleFunc("/{id}/comments/{commentId}", CommentsHandler).Methods(GET, POST)
 	router.HandleFunc("/{id}/like", LikePostHandler).Methods(POST)

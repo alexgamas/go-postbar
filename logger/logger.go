@@ -6,42 +6,7 @@ import (
 	"github.com/op/go-logging"
 )
 
-// type Password string
-
-// func (p Password) Redacted() interface{} {
-// 	return logging.Redact(string(p))
-// }
-
-// func Info(args ...interface{}) {
-// 	log.Info(args)
-// 	/*
-// 		log.Debugf("debug %s", Password("secret"))
-// 		log.Notice("notice")
-// 		log.Error("err")
-// 		log.Critical("crit")
-// 	*/
-// }
-
-// func Fatal(args ...interface{}) {
-// 	log.Fatal(args)
-// 	/*
-// 		log.Debugf("debug %s", Password("secret"))
-// 		log.Notice("notice")
-// 		log.Error("err")
-// 		log.Critical("crit")
-// 	*/
-// }
-
-// func Warning(msg string) {
-// 	log.Warning(msg)
-// }
-
-// func Debug(msg string) {
-// 	log.Debug(msg)
-// }
-
-//func Debug(string msg)
-
+// Log ...
 var Log = logging.MustGetLogger("postbar")
 
 func init() {
@@ -56,18 +21,5 @@ func init() {
 	//backendLeveled.SetLevel(logging.ERROR, "")
 	//logging.SetBackend(backendLeveled, backendFormatter)
 	logging.SetBackend(backendFormatter)
-	/*
 
-		var logpath = build.Default.GOPATH + "/src/chat/logger/info.log"
-
-		flag.Parse()
-		var file, err1 = os.Create(logpath)
-
-		if err1 != nil {
-			panic(err1)
-		}
-
-		Log = log.New(file, "", log.LstdFlags|log.Lshortfile)
-		Log.Println("LogFile : " + logpath)
-	*/
 }
