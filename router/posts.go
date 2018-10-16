@@ -1,6 +1,8 @@
 package router
 
 import (
+	"fmt"
+	"go-postbar/model"
 	"net/http"
 
 	"github.com/gorilla/mux"
@@ -15,8 +17,17 @@ const (
 	DELETE string = "DELETE"
 )
 
+// type Person struct {
+// 	name string
+// 	age  int
+// }
+
 // PostsHandler PostsHandler
-func PostsHandler(w http.ResponseWriter, r *http.Request) {}
+func PostsHandler(w http.ResponseWriter, r *http.Request) {
+	p := model.Post{}
+
+	fmt.Println(p)
+}
 
 // PostHandler PostHandler
 func PostHandler(w http.ResponseWriter, r *http.Request) {}
@@ -32,6 +43,7 @@ func LikeCommentsHandler(w http.ResponseWriter, r *http.Request) {}
 
 // PostsRouter PostsRouter
 func PostsRouter() *mux.Router {
+
 	router := mux.NewRouter()
 
 	router.HandleFunc("/", PostsHandler).Methods(GET)
