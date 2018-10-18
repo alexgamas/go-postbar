@@ -3,9 +3,9 @@ package model
 // Post model
 // `json:"...."` StrucTag -> https://golang.org/pkg/reflect/#StructTag
 type Post struct {
-	ID       string `json:"id"`
-	Title    string `json:"title"`
-	Text     string `json:"text"`
-	Category string `json:"category"`
-	Message  string `json:"message"`
+	ID       string `json:"_id,omitempty"`
+	Title    string `json:"title,omitempty"`
+	Text     string `json:"text,omitempty"`
+	Category string `json:"category,omitempty"`
+	Message  string `json:"message,omitempty"`
 }

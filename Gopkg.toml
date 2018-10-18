@@ -24,7 +24,7 @@
 #   go-tests = true
 #   unused-packages = true
 
-required = ["github.com/gorilla/mux"]
+required = ["github.com/gorilla/mux", "github.com/gorilla/handlers"]
 
 [[constraint]]
   name = "github.com/go-redis/redis"
