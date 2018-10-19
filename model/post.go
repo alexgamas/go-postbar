@@ -1,7 +1,6 @@
 package model
 
 import (
-	"go-postbar/logger"
 	"time"
 )
 
@@ -12,9 +11,4 @@ type Post struct {
 	Title   string    `json:"title,omitempty"`
 	Message string    `json:"message,omitempty"`
 	Created time.Time `json:"created,omitempty"`
-}
-
-// Like Adiciona um like
-func (p Post) Like() {
-	logger.Log.Debug("%s", p)
 }
