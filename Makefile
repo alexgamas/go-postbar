@@ -5,12 +5,14 @@ default: build_docker
 
 deps:
 	@echo deps: "\n\n**** Downloading deps ****\n\n"
+	go get -v github.com/golang/dep/cmd/dep
+
+	dep ensure
 	# go get github.com/garyburd/redigo/redis
 	# go get github.com/go-redis/redis
 	# go get github.com/vmihailenco/msgpack
-	go get github.com/op/go-logging
-	go get github.com/gorilla/mux
-
+	# go get github.com/op/go-logging
+	# go get github.com/gorilla/mux
 
 build: clean deps
 	#go build -o bin/postbar src/main.go
@@ -20,7 +22,7 @@ build: clean deps
 
 build_docker:
 	@echo build_docker: "\n\n**** Calling docker golang image ****\n\n"
-	docker run --rm -it --mount type=bind,src=$(PWD)/,dst=/cart --workdir=/cart golang make build
+	docker run --rm -it --mount type=bind,src=$(PWD),dst=/go/src/go-postbar --workdir=/go/src/go-postbar/ golang make build
 
 clean:
 	@echo build: "\n\n**** Removing old artefacts ****\n\n"

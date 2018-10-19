@@ -1,0 +1,35 @@
+clone:
+  git:
+    image: plugins/git
+
+pipeline:
+  # restore-cache:
+  #   image: drillster/drone-volume-cache
+  #   restore: true
+  #   mount: [ /drone/node_modules ]
+  #   volumes:
+  #   - /tmp/cache:/cache
+
+  frontend:
+    image: golang
+    commands:
+      - go get
+      - go build
+
+  # rebuild-cache:
+  #   image: drillster/drone-volume-cache
+  #   rebuild: true
+  #   mount: [ /drone/.node_modules]
+  #   volumes:
+  #   - /tmp/cache:/cache
+
+  # publish:
+  #   username: developer
+  #   password: k5YFApgXiJjprKa8Vo-pY9nmoU0-cy43PO5mqbGQ_2s
+  #   image: plugins/docker
+  #   dockerfile: Dockerfile
+  #   registry: docker-registry-default.172.29.0.10.nip.io:80
+  #   insecure: true
+  #   launch_debug: true
+  #   repo: docker-registry-default.172.29.0.10.nip.io:80/compraseletronicas/compraseletronicas-ui
+  #   tags: latest
