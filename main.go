@@ -6,6 +6,9 @@ Based on ...
 Soham Kamani article.
 https://www.sohamkamani.com/blog/2017/09/13/how-to-build-a-web-application-in-golang/
 
+Building a RESTful API with Golang
+https://www.codementor.io/codehakase/building-a-restful-api-with-golang-a6yivzqdo
+
 Effective Go
 https://golang.org/doc/effective_go.html#methods
 
@@ -19,7 +22,6 @@ import (
 	"go-postbar/database"
 	hnd "go-postbar/handlers"
 	"go-postbar/logger"
-	"go-postbar/model"
 	"net/http"
 	"os"
 
@@ -58,7 +60,6 @@ func StartServer(address string, port int) {
 	database.Dial(*mongoURL)
 	defer database.Close()
 
-	database.Save("posts", model.Post{})
 	r := PostsRouter()
 
 	addr := fmt.Sprintf("%s:%d", address, port)

@@ -1,9 +1,7 @@
 package database
 
 import (
-	"fmt"
 	"go-postbar/logger"
-	"go-postbar/model"
 	"time"
 
 	"gopkg.in/mgo.v2"
@@ -57,7 +55,7 @@ func Close() {
 // Save ...
 func Save(collectionName string, model interface{}) {
 	collection := mongo.C(collectionName)
-	err = collection.Insert(model)
+	err = collection.Insert(&model)
 
 	if err != nil {
 		log.Fatal(err)
@@ -66,19 +64,19 @@ func Save(collectionName string, model interface{}) {
 }
 
 // GetAll ...
-func GetAll(collectionName string) {
+func GetAll(collectionName string) []interface{} {
 
 	collection := mongo.C(collectionName)
 
-	var result model.Post
+	var results []interface{}
 
-	err = collection.Find(bson.M{"name": "Ale"}).All(&result)
+	err = collection.Find(bson.M{}).All(&results)
 
 	if err != nil {
-		log.Fatal(err)
+		log.Debug("Mongo retornou um erro: %s", err)
 	}
 
-	fmt.Printf("Service started, address: %s", result)
+	return results
 
 	// result := Person{}
 	// err =
@@ -86,6 +84,27 @@ func GetAll(collectionName string) {
 	// 	log.Fatal(err)
 	// }
 
+}
+
+// GetOne ...
+func GetOne(collectionName string, id string) interface{} {
+	collection := mongo.C(collectionName)
+
+	var result interface{}
+
+	if !bson.IsObjectIdHex(id) {
+		log.Error("%s is not a ObjectId value", id)
+	}
+
+	oid := bson.ObjectIdHex(id)
+
+	err = collection.FindId(oid).One(&result)
+
+	if err != nil {
+		log.Debug("Mongo retornou um erro: %s", err)
+	}
+
+	return result
 }
 
 // // Optional. Switch the session to a monotonic behavior.
