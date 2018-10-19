@@ -36,6 +36,10 @@ func Dial(mongoURL string) {
 	log.Debug("Calling mongo ...")
 
 	session, err = mgo.Dial(mongoURL)
+
+	// Optional. Switch the session to a monotonic behavior.
+	// session.SetMode(mgo.Monotonic, true)
+
 	mongo = session.DB("postbar")
 
 	if err != nil {
@@ -78,12 +82,6 @@ func GetAll(collectionName string) []interface{} {
 
 	return results
 
-	// result := Person{}
-	// err =
-	// if err != nil {
-	// 	log.Fatal(err)
-	// }
-
 }
 
 // GetOne ...
@@ -94,6 +92,7 @@ func GetOne(collectionName string, id string) interface{} {
 
 	if !bson.IsObjectIdHex(id) {
 		log.Error("%s is not a ObjectId value", id)
+		return nil
 	}
 
 	oid := bson.ObjectIdHex(id)
@@ -102,25 +101,29 @@ func GetOne(collectionName string, id string) interface{} {
 
 	if err != nil {
 		log.Debug("Mongo retornou um erro: %s", err)
+		return nil
 	}
 
 	return result
 }
 
-// // Optional. Switch the session to a monotonic behavior.
-// session.SetMode(mgo.Monotonic, true)
+// DeleteOne ...
+func DeleteOne(collectionName string, id string) bool {
+	collection := mongo.C(collectionName)
 
-// c := session.DB("test").C("people")
-// err = c.Insert(&Person{"Ale", "+55 53 8116 9639"},
-// 	&Person{"Cla", "+55 53 8402 8510"})
-// if err != nil {
-// 	log.Fatal(err)
-// }
+	if !bson.IsObjectIdHex(id) {
+		log.Error("%s is not a ObjectId value", id)
+		return false
+	}
 
-// result := Person{}
-// err = c.Find(bson.M{"name": "Ale"}).One(&result)
-// if err != nil {
-// 	log.Fatal(err)
-// }
+	oid := bson.ObjectIdHex(id)
 
-// fmt.Println("Phone:", result.Phone)
+	err = collection.RemoveId(oid)
+
+	if err != nil {
+		log.Debug("Mongo retornou um erro: %s", err)
+		return false
+	}
+
+	return true
+}

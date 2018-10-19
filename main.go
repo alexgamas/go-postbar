@@ -44,12 +44,9 @@ func PostsRouter() *mux.Router {
 
 	r.HandleFunc("/health", hnd.HealthHandler).Methods(hnd.GET)
 
-	r.HandleFunc("/posts", hnd.PostsHandler).Methods(hnd.GET)
-	r.HandleFunc("/posts/{id}", hnd.PostHandler).Methods(hnd.GET)
+	r.HandleFunc("/posts", hnd.PostsHandler).Methods(hnd.GET, hnd.POST)
+	r.HandleFunc("/posts/{id}", hnd.PostHandler).Methods(hnd.GET, hnd.DELETE)
 
-	// r.HandleFunc("/posts/{id}/comments/{commentId}", router.CommentsHandler).Methods(GET, POST)
-	// r.HandleFunc("/posts/like", router.LikePostHandler).Methods(POST)
-	// r.HandleFunc("/posts/comments/{commentId}/like", router.LikeCommentsHandler).Methods(POST)
 	r.NotFoundHandler = http.HandlerFunc(hnd.NotFoundHandler)
 	return r
 }
